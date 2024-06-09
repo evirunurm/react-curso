@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import useTaskUtils from '../../hooks/useTasksUtils'
 import { Task } from '../../types'
 import TaskCard from '../TaskCard/TaskCard'
 
@@ -8,7 +9,8 @@ export interface TasksListProps {
 }
 
 const TasksLists: FC<TasksListProps> = ({ tasks, filter }) => {
-  const filteredTasks = filter ? tasks.filter((task) => task.title.includes(filter)) : [...tasks]
+  const { filterTasks } = useTaskUtils()
+  const filteredTasks = filterTasks(tasks, filter)
 
   return (
     <>
