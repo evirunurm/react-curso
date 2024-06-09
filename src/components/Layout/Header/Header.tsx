@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-interface HeaderProps {
+export interface HeaderProps {
   title: string
 }
 
