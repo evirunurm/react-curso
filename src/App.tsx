@@ -33,7 +33,6 @@ function App() {
     <Layout>
       <SearchBar onSearch={(value: string) => setFilter(value)} />
       <TasksLists tasks={allTasks} filter={filter} />
-      <div>Contenido de la aplicación</div>
     </Layout>
   )
 }
