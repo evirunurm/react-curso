@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { Task } from '../../types'
+import css from './TaskCard.module.css'
 
 export interface TaskCardProps {
   task: Task
@@ -7,7 +8,7 @@ export interface TaskCardProps {
 
 const TaskCard: FC<TaskCardProps> = ({ task }) => {
   return (
-    <div className="card">
+    <div className={css.card}>
       <h2>{task.title}</h2>
       <p>{task.description}</p>
       <p>{task.completed ? 'Completada' : 'Pendiente'}</p>
