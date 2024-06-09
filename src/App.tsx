@@ -26,19 +26,13 @@ const allTasks: Task[] = [
 ]
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>(allTasks)
+  const [filter, setFilter] = useState('')
 
   return (
     <Layout>
-      <input
-        type="text"
-        placeholder="buscar"
-        onChange={(e) => {
-          setTasks(allTasks.filter((task) => task.title.includes(e.target.value)))
-        }}
-      />
+      <input type="text" placeholder="buscar" onChange={(e) => setFilter(e.target.value)} />
 
-      <TasksLists tasks={tasks} />
+      <TasksLists tasks={allTasks} filter={filter} />
 
       <div>Contenido de la aplicación</div>
     </Layout>
