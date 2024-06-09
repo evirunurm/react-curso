@@ -1,6 +1,6 @@
 import './App.css'
 import Layout from './components/Layout/Layout'
-import TaskCard from './components/TaskCard/TaskCard'
+import TasksLists from './components/TasksList/TasksList'
 import { Task } from './types'
 
 function App() {
@@ -27,9 +27,8 @@ function App() {
 
   return (
     <Layout>
-      {todoList.map((todo) => (
-        <TaskCard task={todo} key={`task-${todo.id}`} />
-      ))}
+      <TasksLists tasks={todoList} />
+
       <div>Contenido de la aplicación</div>
     </Layout>
   )
