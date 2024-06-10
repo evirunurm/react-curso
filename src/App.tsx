@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import './App.css'
 import CreateTaskForm from './components/CreateTaskForm/CreateTaskForm'
 import Layout from './components/Layout/Layout'
@@ -27,21 +27,36 @@ const allTasks: Task[] = [
   },
 ]
 
+enum TaskAction {
+  Create,
+  Update,
+}
+interface TaskReducerAction {
+  command: TaskAction
+  task: Task | TaskWithoutId
+}
+
+const taskReducer = (state: Task[], action: TaskReducerAction): Task[] => {
+  switch (action.command) {
+    case TaskAction.Create:
+      return [...state, { ...action.task, id: state.length + 1, completed: false }]
+    case TaskAction.Update:
+      return state.map((task) => (task.id === (action.task as Task).id ? action.task : task) as Task)
+    default:
+      return state
+  }
+}
+
 function App() {
   const [filter, setFilter] = useState('')
-  const [tasks, setTasks] = useState(allTasks)
+  const [tasks, dispatch] = useReducer(taskReducer, allTasks)
 
   const handleTaskCreated = (task: TaskWithoutId) => {
-    const newTask: Task = {
-      id: tasks.length + 1,
-      ...task,
-    }
-    setTasks([...tasks, newTask])
+    dispatch({ command: TaskAction.Create, task })
   }
 
   const handleTaskChanged = (task: Task) => {
-    const newTasks = tasks.map((t) => (t.id === task.id ? task : t))
-    setTasks(newTasks)
+    dispatch({ command: TaskAction.Update, task })
   }
 
   return (
