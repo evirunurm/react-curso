@@ -1,15 +1,15 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import useTaskUtils from '../../hooks/useTasksUtils'
 import { Task } from '../../types'
 import TaskCard from '../TaskCard/TaskCard'
+import { TasksContext } from '../TasksContext/TasksContext'
 
 export interface TasksListProps {
-  tasks: Task[]
   filter?: string
-  onTaskChanged: (task: Task) => void
 }
 
-const TasksLists: FC<TasksListProps> = ({ tasks, filter, onTaskChanged }) => {
+const TasksLists: FC<TasksListProps> = ({ filter }) => {
+  const { tasks } = useContext(TasksContext)
   const { filterTasks } = useTaskUtils()
   const filteredTasks = filterTasks(tasks, filter)
 
@@ -22,7 +22,7 @@ const TasksLists: FC<TasksListProps> = ({ tasks, filter, onTaskChanged }) => {
       )}
       {!filter && <p>sin filtro</p>}
       {filteredTasks.map((todo: Task) => (
-        <TaskCard task={todo} key={`task-${todo.id}`} onTaskChanged={onTaskChanged} />
+        <TaskCard task={todo} key={`task-${todo.id}`} />
       ))}
     </>
   )

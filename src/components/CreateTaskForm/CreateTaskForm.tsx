@@ -1,12 +1,12 @@
-import { FC, useId } from 'react'
+import { FC, useContext, useId } from 'react'
 import { TaskWithoutId } from '../../types'
+import { TasksContext } from '../TasksContext/TasksContext'
 import css from './CreateTaskForm.module.css'
 
-export interface CreateTaskFormProps {
-  onTaskCreated: (task: TaskWithoutId) => void
-}
+export interface CreateTaskFormProps {}
 
-const CreateTaskForm: FC<CreateTaskFormProps> = ({ onTaskCreated }) => {
+const CreateTaskForm: FC<CreateTaskFormProps> = () => {
+  const { addTask } = useContext(TasksContext)
   const id = useId()
 
   const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,7 +17,7 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ onTaskCreated }) => {
       description: formData.get('description') as string,
       completed: false,
     }
-    onTaskCreated(task)
+    addTask(task)
   }
 
   return (
