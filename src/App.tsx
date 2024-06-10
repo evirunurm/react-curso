@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import './App.css'
+import CreateTaskForm from './components/CreateTaskForm/CreateTaskForm'
 import Layout from './components/Layout/Layout'
 import SearchBar from './components/SearchBar/SearchBar'
 import TasksLists from './components/TasksList/TasksList'
-import { Task } from './types'
+import { Task, TaskWithoutId } from './types'
 
 const allTasks: Task[] = [
   {
@@ -28,11 +29,21 @@ const allTasks: Task[] = [
 
 function App() {
   const [filter, setFilter] = useState('')
+  const [tasks, setTasks] = useState(allTasks)
+
+  const handleTaskCreated = (task: TaskWithoutId) => {
+    const newTask: Task = {
+      id: tasks.length + 1,
+      ...task,
+    }
+    setTasks([...tasks, newTask])
+  }
 
   return (
     <Layout>
       <SearchBar onSearch={(value: string) => setFilter(value)} />
-      <TasksLists tasks={allTasks} filter={filter} />
+      <TasksLists tasks={tasks} filter={filter} />
+      <CreateTaskForm onTaskCreated={handleTaskCreated} />
     </Layout>
   )
 }

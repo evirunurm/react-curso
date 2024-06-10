@@ -59,12 +59,7 @@ textarea {
   border: 2px solid var(--color-text-secondary);
 }
 
-.vertical-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  width: 300px;
-}
+
 
 
 @media (prefers-color-scheme: light) {
