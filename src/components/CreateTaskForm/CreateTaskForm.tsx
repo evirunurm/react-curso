@@ -11,9 +11,10 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ onTaskCreated }) => {
 
   const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const formData = new FormData(e.currentTarget)
     const task: TaskWithoutId = {
-      title: e.currentTarget[0].value,
-      description: e.currentTarget[1].value,
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
       completed: false,
     }
     onTaskCreated(task)
@@ -22,9 +23,9 @@ const CreateTaskForm: FC<CreateTaskFormProps> = ({ onTaskCreated }) => {
   return (
     <form className={css.form} onSubmit={handleForm}>
       <label id={`${id}-title`}>Título</label>
-      <input type="text" aria-describedby={`${id}-title`} />
+      <input type="text" aria-describedby={`${id}-title`} name="title" />
       <label id={`${id}-description`}>Descripción</label>
-      <textarea aria-describedby={`${id}-description`} />
+      <textarea aria-describedby={`${id}-description`} name="description" />
       <button type="submit">Crear tarea</button>
     </form>
   )
