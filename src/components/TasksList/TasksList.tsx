@@ -6,9 +6,10 @@ import TaskCard from '../TaskCard/TaskCard'
 export interface TasksListProps {
   tasks: Task[]
   filter?: string
+  onTaskChanged: (task: Task) => void
 }
 
-const TasksLists: FC<TasksListProps> = ({ tasks, filter }) => {
+const TasksLists: FC<TasksListProps> = ({ tasks, filter, onTaskChanged }) => {
   const { filterTasks } = useTaskUtils()
   const filteredTasks = filterTasks(tasks, filter)
 
@@ -21,7 +22,7 @@ const TasksLists: FC<TasksListProps> = ({ tasks, filter }) => {
       )}
       {!filter && <p>sin filtro</p>}
       {filteredTasks.map((todo: Task) => (
-        <TaskCard task={todo} key={`task-${todo.id}`} />
+        <TaskCard task={todo} key={`task-${todo.id}`} onTaskChanged={onTaskChanged} />
       ))}
     </>
   )
