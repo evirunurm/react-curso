@@ -54,6 +54,7 @@
   "lint-staged": {
     "*.ts": "eslint",
     "*.tsx": "eslint",
-    "*.md": "prettier --list-different"
+    "*.md": "prettier --list-different",
+    "*.{js,jsx,ts,tsx}": "vitest run"
   }
 }
